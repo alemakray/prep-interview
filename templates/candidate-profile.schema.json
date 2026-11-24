@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CandidateProfile",
+  "description": "Fatos confirmados pelo candidato, reutilizados em todas as vagas. Sem dados de contato.",
+  "type": "object",
+  "properties": {
+    "updated_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "level": {
+      "type": "string",
+      "description": "Senioridade e trilha (ex.: Senior IC infra/plataforma)"
+    },
+    "voice": {
+      "type": "string",
+      "description": "Tom, formato e idioma do CV"
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "course": {
+            "type": "string"
+          },
+          "institution": {
+            "type": "string"
+          },
+          "completed": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "valid_until": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "exit_reasons": {
+      "type": "array",
+      "description": "Motivo real de saída de cada empregador, como o candidato quer contar",
+      "items": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "description": "Status confirmado por ferramenta ou tema",
+      "additionalProperties": {
+        "enum": [
+          "production",
+          "personal_project",
+          "studying",
+          "never_used"
+        ]
+      }
+    },
+    "logistics": {
+      "type": "object",
+      "properties": {
+        "notice_period": {
+          "type": "string"
+        },
+        "earliest_start": {
+          "type": "string"
+        },
+        "timezone_constraints": {
+          "type": "string"
+        },
+        "contract_models_accepted": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "work_authorization": {
+          "type": "string"
+        },
+        "visa_status": {
+          "type": "string"
+        }
+      }
+    },
+    "compensation": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "string"
+        },
+        "minimum_acceptable": {
+          "type": "string"
+        },
+        "target_range": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "interview_history": {
+      "type": "array",
+      "description": "Perguntas que já caíram em entrevistas reais (alimenta as próximas preparações)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "location": {
+      "type": "string",
+      "description": "cidade/país e fuso"
+    },
+    "english_level": {
+      "type": "string"
+    },
+    "preferences": {
+      "type": "object",
+      "description": "Preferências de uso do agent",
+      "properties": {
+        "mock_feedback": {
+          "enum": [
+            "each",
+            "end"
+          ]
+        },
+        "mock_questions": {
+          "type": "integer"
+        },
+        "target_roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

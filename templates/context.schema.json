@@ -1,0 +1,453 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InterviewPrepContext",
+  "description": "Estado compartilhado entre as etapas do agent. Cada etapa lê e atualiza este objeto.",
+  "type": "object",
+  "required": [
+    "step_completed",
+    "inputs",
+    "job",
+    "candidate",
+    "fit"
+  ],
+  "properties": {
+    "step_completed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "language": {
+      "type": "object",
+      "properties": {
+        "conversation": {
+          "type": "string",
+          "examples": [
+            "pt-BR"
+          ]
+        },
+        "interview": {
+          "type": "string",
+          "examples": [
+            "en"
+          ]
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "required": [
+        "cv",
+        "job"
+      ],
+      "properties": {
+        "cv": {
+          "$ref": "#/$defs/source"
+        },
+        "job": {
+          "$ref": "#/$defs/source"
+        }
+      }
+    },
+    "job": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "work_model": {
+          "enum": [
+            "remote",
+            "hybrid",
+            "onsite",
+            "unknown"
+          ]
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "restrictions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "seniority": {
+          "type": "string"
+        },
+        "must_have": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nice_to_have": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "responsibilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "culture_signals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "salary": {
+          "type": "string"
+        },
+        "process_hints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "red_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "description": "Só level, voice e attention_points. Experiências e skills ficam em profile/cv.md.",
+      "properties": {
+        "current_role": {
+          "type": "string"
+        },
+        "attention_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "level": {
+          "type": "string",
+          "description": "Senioridade inferida do CV; as etapas seguintes não podem inflar."
+        },
+        "voice": {
+          "type": "string",
+          "description": "Tom, formato e idioma do CV original."
+        }
+      }
+    },
+    "fit": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "verdict": {
+          "enum": [
+            "strong",
+            "competitive",
+            "risky",
+            "off_profile"
+          ]
+        },
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "requirement",
+              "type",
+              "status"
+            ],
+            "properties": {
+              "requirement": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "must",
+                  "nice"
+                ]
+              },
+              "evidence": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "meets",
+                  "partial",
+                  "gap"
+                ]
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "strengths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "gap": {
+                "type": "string"
+              },
+              "impact": {
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              "strategy": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "missing_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "likely_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "open_questions_for_candidate": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cv_update": {
+      "type": "object",
+      "properties": {
+        "accepted": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "real_cases_added": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "study_only": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pdf": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "applied": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "null = sugestões ainda não decididas; true = aplicadas; false = candidato recusou"
+        }
+      }
+    },
+    "company": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "industry": {
+          "type": "string"
+        },
+        "employees": {
+          "type": "string"
+        },
+        "revenue": {
+          "type": "string"
+        },
+        "clients": {
+          "type": "string"
+        },
+        "recent_news": {
+          "type": "string"
+        },
+        "workplace_verdict": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "mode": {
+      "enum": [
+        "full",
+        "quick"
+      ]
+    },
+    "interview_prep": {
+      "type": "object",
+      "properties": {
+        "recruiter": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "technical": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "manager": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tricks_asked": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mock_scores": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "phase": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "score": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "schedule": {
+      "type": "object",
+      "properties": {
+        "interview_dates": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "study_hours_per_day": {
+          "type": "number"
+        },
+        "interviewers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "phase": {
+                "type": "string"
+              },
+              "public_profile": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "offer": {
+      "type": "object",
+      "properties": {
+        "received": {
+          "type": "string"
+        },
+        "counter": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "url",
+            "pdf",
+            "doc",
+            "docx",
+            "text",
+            "md"
+          ]
+        },
+        "ref": {
+          "type": "string",
+          "description": "URL ou caminho do arquivo"
+        },
+        "read_ok": {
+          "type": "boolean"
+        },
+        "limitations": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

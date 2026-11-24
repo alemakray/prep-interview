@@ -1,0 +1,19 @@
+# Dados pessoais (CV, vagas, perfil, resultados): nunca versionar
+inputs/**
+!inputs/**/
+!inputs/**/.gitkeep
+outputs/**
+!outputs/.gitkeep
+profile/**
+!profile/.gitkeep
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+.vscode/
+.idea/
+*.swp
+
+# Configuração local do Claude Code
+.claude/settings.local.json
