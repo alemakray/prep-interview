@@ -20,11 +20,11 @@ prepara você para cada fase do processo seletivo, simula a entrevista em inglê
 
 | | Etapa | O que você recebe |
 |---|---|---|
-| 👤 | **0. Perfil** | Um questionário único que monta seu perfil. Cada vaga depois só pergunta o que for novo |
+| 👤 | **0. Perfil** | Um questionário único que monta seu perfil e um banco de 6 a 8 histórias STAR reais, salvos na sua máquina. Cada vaga depois só pergunta o que for novo |
 | 📊 | **1. Análise de fit** | Nota de 0 a 100, requisito por requisito com evidência do seu CV, gaps e uma recomendação honesta: vale ou não se candidatar |
 | 📝 | **2. Sugestões de CV** | Antes / Depois / Por quê, mantendo seu nível e sua voz. Nada é alterado sem você pedir |
 | 🏢 | **3. Empresa** | Ramo, tamanho, receita, clientes, notícias, reputação, artigos de funcionários e a resposta para *"What do you know about us?"* |
-| 🎤 | **4. Processo seletivo** | Recrutador (com faixa salarial pesquisada), entrevista técnica (com *trick questions* e live test) e gerente (soft skills) |
+| 🎤 | **4. Processo seletivo** | Recrutador (com faixa salarial pesquisada), entrevista técnica (com *trick questions* e live test) e gerente (soft skills, com suas histórias STAR adaptadas para a vaga) |
 | 📚 | **5. Plano de estudo** | Os gaps viram um cronograma com mini-projetos até a data da entrevista |
 | 🧘 | **6. Dicas pré-entrevista** | Checklist da semana, da véspera e do dia: ambiente, equipamento, descanso, ensaio da apresentação, aquecimento em inglês e e-mail de agradecimento |
 | 🎭 | **7. Simulação ao vivo** | Uma pergunta por vez, em inglês, com nota e feedback de conteúdo e de inglês |
@@ -154,7 +154,7 @@ Max não há cobrança por token: o custo é o consumo do seu limite de uso.
 
 - **Cache do CV:** o PDF é lido uma vez e vira `profile/cv.md`.
 - **Cache de empresa:** a pesquisa fica guardada por 30 dias e é reaproveitada.
-- **Perfil persistente:** o que você já respondeu não é perguntado de novo.
+- **Perfil persistente:** o que você já respondeu não é perguntado de novo. As histórias STAR ficam em `profile/star-stories.md` e são reaproveitadas (e enriquecidas) a cada vaga.
 - **Estado por vaga:** cada etapa lê só um `context.json` compacto, não os relatórios anteriores.
 - **Modelo menor nas buscas:** pesquisas em lote vão para um subagent com Haiku.
 - **Entrevista técnica enxuta:** no máximo 6 tópicos, agrupando requisitos parecidos.
