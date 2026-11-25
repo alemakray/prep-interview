@@ -2,7 +2,7 @@
 
 # 🎯 prep-interview
 
-**Seu coach de entrevistas para vagas de tecnologia fora do Brasil, rodando no Claude Code.**
+**Um agent que te prepara para entrevistas de vagas de tecnologia fora do Brasil, rodando no Claude Code.**
 
 Mande seu CV e o link da vaga: o agent analisa o fit, sugere ajustes no CV, pesquisa a empresa,
 prepara você para cada fase do processo seletivo, simula a entrevista em inglês e ajuda a negociar a oferta.
