@@ -49,7 +49,7 @@ o que ele fez e o que mudou depois (número só se for real). Salve em
 `profile/star-stories.md`.
 
 Se o candidato quiser pular agora, monte o banco depois, na primeira vez que
-for necessário (etapa 4 ou 6).
+for necessário (etapa 4 ou 7).
 
 ### 0.4 Fechamento
 

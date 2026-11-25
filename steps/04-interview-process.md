@@ -52,7 +52,7 @@ pergunte se pode seguir para a próxima.
 
 - **Registro para as próximas etapas:** ao fim de cada fase, salve em
   `context.json` → `interview_prep.<fase>` só os **títulos** das perguntas, e
-  em `interview_prep.tricks_asked` as tricks usadas. A etapa 6 e as próximas
+  em `interview_prep.tricks_asked` as tricks usadas. A etapa 7 e as próximas
   execuções leem daí, sem abrir os arquivos `.md`.
 
 ## 4.1 Recrutador(a)
@@ -70,7 +70,7 @@ Faça de 8 a 10 perguntas, sempre incluindo:
        vaga (CLT local, PJ, contractor em USD, EOR), em fontes de mercado e
        pesquisas salariais de consultorias de RH.
      - Reutilize a pesquisa salarial em `profile/companies/<empresa>.md` se
-       tiver menos de 30 dias; senão, salve a nova lá. A etapa 7 reaproveita
+       tiver menos de 30 dias; senão, salve a nova lá. A etapa 8 reaproveita
        essa pesquisa.
   2. **Calcule a faixa sugerida:** cruze a empresa e o mercado com o
      `compensation` do perfil. O piso fica **acima do mínimo aceitável** do

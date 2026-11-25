@@ -1,7 +1,7 @@
 ---
 name: prep-interview
 description: Interview-prep agent for tech jobs. Use when the user runs /prep-interview or asks to analyze a CV against a job description, suggest CV improvements for a job, research a hiring company, prepare recruiter/technical/manager interviews, build a study plan for gaps, run a mock interview, negotiate an offer, triage jobs quickly (--quick) or compare analyzed jobs (--compare).
-argument-hint: "[--quick | --compare | etapa 0-7] <cv> <link-ou-arquivo-da-vaga>"
+argument-hint: "[--quick | --compare | etapa 0-8] <cv> <link-ou-arquivo-da-vaga>"
 ---
 
 # prep-interview
@@ -28,7 +28,7 @@ Todos os caminhos são relativos à raiz deste repositório.
    - Use `profile/cv.md` em vez de reler o PDF (ver `AGENT.md`). Para criar o
      cache, tente `pdftotext -layout <cv.pdf> -`; só se não estiver instalado
      ou não houver texto, leia o PDF.
-   - **Pesquisa em lote** (etapas 3, 4 e 7, com 3 ou mais buscas ou leitura
+   - **Pesquisa em lote** (etapas 3, 4 e 8, com 3 ou mais buscas ou leitura
      de páginas): mande tudo para **um** subagent com `model: "haiku"` (ou
      `"sonnet"` se as páginas forem complexas), pedindo um resumo estruturado
      com fontes. **Busca isolada** (1 ou 2): chame WebSearch direto. Rode

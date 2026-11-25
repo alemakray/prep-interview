@@ -26,8 +26,9 @@ prepara você para cada fase do processo seletivo, simula a entrevista em inglê
 | 🏢 | **3. Empresa** | Ramo, tamanho, receita, clientes, notícias, reputação, artigos de funcionários e a resposta para *"What do you know about us?"* |
 | 🎤 | **4. Processo seletivo** | Recrutador (com faixa salarial pesquisada), entrevista técnica (com *trick questions* e live test) e gerente (soft skills) |
 | 📚 | **5. Plano de estudo** | Os gaps viram um cronograma com mini-projetos até a data da entrevista |
-| 🎭 | **6. Simulação ao vivo** | Uma pergunta por vez, em inglês, com nota e feedback de conteúdo e de inglês |
-| 💰 | **7. Negociação** | Faixa de mercado, CLT × PJ × contractor e roteiro de contraproposta |
+| 🧘 | **6. Dicas pré-entrevista** | Checklist da semana, da véspera e do dia: ambiente, equipamento, descanso, ensaio da apresentação, aquecimento em inglês e e-mail de agradecimento |
+| 🎭 | **7. Simulação ao vivo** | Uma pergunta por vez, em inglês, com nota e feedback de conteúdo e de inglês |
+| 💰 | **8. Negociação** | Faixa de mercado, CLT × PJ × contractor e roteiro de contraproposta |
 
 Funciona para **qualquer vaga de tecnologia**: dev, dados, DevOps/SRE, cloud, QA, segurança, produto.
 
@@ -35,17 +36,18 @@ Funciona para **qualquer vaga de tecnologia**: dev, dados, DevOps/SRE, cloud, QA
 
 ```mermaid
 flowchart LR
-    CV[📄 Seu CV] --> P0[0. Perfil]
-    JD[🔗 Vaga] --> E1
-    P0 --> E1[1. Análise de fit]
-    E1 -->|sem fit| X[🚫 Recomenda não se candidatar]
-    E1 -->|com fit| E2[2. Sugestões de CV]
-    E2 --> E3[3. Empresa]
-    E3 --> E4[4. Recrutador → Técnica → Gerente]
-    E4 --> FIM[✅ Aplicar sugestões e gerar PDF?]
-    E1 -.sob demanda.-> E5[5. Estudo]
-    E1 -.sob demanda.-> E6[6. Simulação]
-    E1 -.sob demanda.-> E7[7. Negociação]
+    CV["📄 Seu CV"] --> P0["Etapa 0 · Perfil"]
+    JD["🔗 Vaga"] --> E1
+    P0 --> E1["Etapa 1 · Análise de fit"]
+    E1 -->|sem fit| X["🚫 Recomenda não se candidatar"]
+    E1 -->|com fit| E2["Etapa 2 · Sugestões de CV"]
+    E2 --> E3["Etapa 3 · Empresa"]
+    E3 --> E4["Etapa 4 · Recrutador, Técnica, Gerente"]
+    E4 --> FIM["✅ Aplicar sugestões e gerar PDF?"]
+    E1 -. sob demanda .-> E5["Etapa 5 · Estudo"]
+    E1 -. sob demanda .-> E6["Etapa 6 · Dicas pré-entrevista"]
+    E1 -. sob demanda .-> E7["Etapa 7 · Simulação"]
+    E1 -. sob demanda .-> E8["Etapa 8 · Negociação"]
 ```
 
 ## 🚀 Começando
@@ -90,7 +92,7 @@ choco install poppler               # Windows (ou: scoop install poppler)
 | `/prep-interview <cv> <vaga>` | Análise completa de uma vaga (etapa 1) e segue o fluxo |
 | `/prep-interview --quick <cv> <vaga>` | Triagem rápida: nota, veredito e 3 maiores gaps em ~10 linhas |
 | `/prep-interview --compare` | Tabela comparando todas as vagas já analisadas |
-| `/prep-interview etapa N` | Roda a etapa N (0 a 7) na vaga mais recente |
+| `/prep-interview etapa N` | Roda a etapa N (0 a 8) na vaga mais recente |
 
 > 💡 **Fluxo econômico:** rode `--quick` em várias vagas, depois `--compare`, e faça a análise completa só
 > nas que valem a pena.
@@ -117,10 +119,10 @@ Alguns sites, como o LinkedIn, bloqueiam leitura automática: nesse caso, cole o
 | Uso | Modelo |
 |---|---|
 | Todas as etapas, `--quick`, `--compare` | **Sonnet** (recomendado) |
-| CV (etapa 2) e simulação (etapa 6) | Opus, opcional, para mais refinamento |
+| CV (etapa 2) e simulação (etapa 7) | Opus, opcional, para mais refinamento |
 | Buscas e leitura de páginas | Haiku, automático |
 
-**Custo estimado do processo completo (etapas 0 a 7) com chave de API:** cerca de US$ 1,50 a 2,50 no Sonnet,
+**Custo estimado do processo completo (etapas 0 a 8) com chave de API:** cerca de US$ 1,50 a 2,50 no Sonnet,
 ou US$ 3 a 5 no Opus. São estimativas; use `/cost` no fim da sessão para ver o valor real. Nos planos Pro e
 Max não há cobrança por token: o custo é o consumo do seu limite de uso.
 
@@ -142,15 +144,51 @@ Max não há cobrança por token: o custo é o consumo do seu limite de uso.
 
 </details>
 
-<details>
-<summary><b>🌐 E no Claude.ai, sem o Claude Code?</b></summary>
+## 🌐 Usando fora do Claude Code
 
-Funciona em parte. Crie um **Project**, coloque o `AGENT.md` nas instruções e adicione os arquivos de
-`steps/` e `templates/`. Você perde o comando `/prep-interview`, os arquivos salvos automaticamente e as
-buscas com modelo menor, e precisa copiar o `context.json` e o perfil entre as conversas. No plano gratuito,
-o limite de mensagens torna a simulação (etapa 6) difícil.
+O agent é só texto em Markdown, então dá para usar em outros chats de IA. A experiência é mais manual:
+você perde o comando `/prep-interview`, os arquivos salvos automaticamente e as buscas com modelo menor.
 
-</details>
+### Passo a passo
+
+1. **Crie um espaço com instruções fixas** no chat que você usa:
+
+   | Chat | Onde |
+   |---|---|
+   | Claude.ai | **Projects** → instruções do projeto |
+   | ChatGPT | **Projects** ou **Custom GPT** → instruções |
+   | Gemini | **Gems** → instruções |
+   | Outros / API | o *system prompt* |
+
+2. **Cole o conteúdo do `AGENT.md`** como instrução.
+3. **Adicione como arquivos de conhecimento** os arquivos de `steps/` e `templates/`. Se o chat não aceitar
+   arquivos, cole o conteúdo da etapa no início da conversa.
+4. **Comece pela etapa 0:** envie seu CV e peça *"rode a etapa 0"*.
+5. **Para cada vaga:** envie o CV e o link ou texto da vaga e peça *"rode a etapa 1"*. Depois, *"etapa 2"*,
+   *"etapa 3"* e assim por diante.
+
+### Guardando a memória entre conversas
+
+Sem acesso a arquivos, o agent não consegue salvar sozinho. No fim de cada etapa, peça:
+
+> *"Me mostre o `context.json` desta vaga e o `candidate-profile.json` atualizados."*
+
+Guarde os dois (num arquivo de texto ou como arquivo do projeto) e cole na próxima conversa. Assim o
+agent continua de onde parou e não repete perguntas.
+
+### O que muda
+
+| Recurso | Claude Code | Outros chats |
+|---|---|---|
+| Ler CV em PDF | ✅ | ✅ na maioria (anexo) |
+| Pesquisa na web (etapas 3, 4 e 8) | ✅ | ✅ se o chat tiver busca ativada |
+| Memória entre vagas | ✅ automática | ⚠️ manual (copiar e colar) |
+| Gerar o PDF do CV | ✅ | ⚠️ depende do chat (alguns executam código) |
+| Simulação ao vivo (etapa 7) | ✅ | ✅, mas pode bater no limite de mensagens do plano gratuito |
+
+> ⚠️ **Qualidade:** as instruções foram escritas e testadas com o Claude. Modelos menores tendem a ignorar
+> regras como "não inventar experiência" e "manter seu nível e sua voz". Prefira os modelos mais capazes do
+> seu chat e confira as sugestões de CV com atenção.
 
 ## 🔒 Privacidade
 
@@ -165,7 +203,7 @@ guarda telefone, e-mail nem endereço.
 ```text
 prep-interview/
 ├── AGENT.md                     # instruções principais: princípios, fluxo, modos, memória
-├── steps/                       # uma instrução por etapa (00 a 07)
+├── steps/                       # uma instrução por etapa (00 a 08)
 ├── templates/                   # formatos de saída e schemas JSON
 ├── .claude/skills/prep-interview/
 │   └── SKILL.md                 # o comando /prep-interview

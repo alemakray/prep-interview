@@ -1,4 +1,4 @@
-# Etapa 7: Oferta e negociação
+# Etapa 8: Oferta e negociação
 
 ## Objetivo
 
@@ -59,7 +59,7 @@ horas exigidas, o que acontece quando o projeto ou cliente termina.
 
 ## Output
 
-- `outputs/<vaga>/07-offer.md`
+- `outputs/<vaga>/08-offer.md`
 - No chat: a faixa recomendada, a comparação resumida e o **roteiro de
   contraproposta completo** (é resposta para falar ou escrever, então vai
   inteiro).

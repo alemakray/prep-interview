@@ -1,4 +1,4 @@
-# Etapa 6: Simulação de entrevista ao vivo (mock)
+# Etapa 7: Simulação de entrevista ao vivo (mock)
 
 ## Objetivo
 
@@ -47,7 +47,7 @@ Para cada resposta:
 
 ## Output
 
-- `outputs/<vaga>/06-mock-<fase>-<n>.md` **compacto**: para cada pergunta, o
+- `outputs/<vaga>/07-mock-<fase>-<n>.md` **compacto**: para cada pergunta, o
   título, a nota e uma linha de melhoria, mais a nota geral e os 3 pontos a
   melhorar. Não transcreva as respostas do candidato nem repita o feedback
   completo, que já está no chat. Isso basta para medir a evolução entre
