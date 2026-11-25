@@ -1,7 +1,7 @@
 ---
 name: prep-interview
 description: Interview-prep agent for tech jobs. Use when the user runs /prep-interview or asks to analyze a CV against a job description, suggest CV improvements for a job, research a hiring company, prepare recruiter/technical/manager interviews, build a study plan for gaps, run a mock interview, negotiate an offer, triage jobs quickly (--quick) or compare analyzed jobs (--compare).
-argument-hint: "[--quick | --compare | etapa 0-8] <cv> <link-ou-arquivo-da-vaga>"
+argument-hint: "[pedido livre | --quick | --compare | --all | etapa 0-8] [cv] [vaga]"
 ---
 
 # prep-interview
@@ -14,14 +14,17 @@ Todos os caminhos são relativos à raiz deste repositório.
    `outputs/<vaga>/context.json`.
 3. Leia **só** o arquivo da etapa que vai rodar (`steps/0N-*.md`) e o template
    dela. Não carregue as outras etapas.
-4. Interprete os argumentos, nesta ordem:
+4. Interprete os argumentos, nesta ordem (detalhes em "Navegação" no
+   `AGENT.md`):
    - sem `profile/candidate-profile.json` → etapa 0 (onboarding) antes de tudo
      (exceto `--quick`)
-   - `--quick` → modo rápido (etapa 1 reduzida)
-   - `--compare` → modo comparar
-   - `etapa N` → roda a etapa N para a vaga indicada ou para a mais recente
+   - `--quick` → modo rápido · `--compare` → comparar · `--all` → modo contínuo
+   - `etapa N` → roda a etapa N na vaga indicada ou na mais recente
    - CV + vaga sem flag → etapa 1 completa
-   - sem argumentos → pergunte pelos dois inputs
+   - texto livre ("tenho técnica amanhã", "quero treinar") → identifique a
+     intenção e a etapa
+   - sem argumentos → painel das vagas salvas e sugestão de continuação; sem
+     vagas, peça CV e vaga
 5. Salve os resultados em `outputs/<empresa>-<id>/` e os fatos novos do
    candidato em `profile/` (crie as pastas se não existirem).
 6. Economia:

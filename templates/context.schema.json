@@ -418,6 +418,62 @@
           "type": "string"
         }
       }
+    },
+    "application": {
+      "type": "object",
+      "description": "Fase real da candidatura, separada das etapas do agent",
+      "properties": {
+        "status": {
+          "enum": [
+            "researching",
+            "applied",
+            "recruiter",
+            "technical",
+            "manager",
+            "offer",
+            "accepted",
+            "rejected",
+            "withdrawn"
+          ]
+        },
+        "next_event": {
+          "type": "object",
+          "properties": {
+            "phase": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "time": {
+              "type": "string"
+            },
+            "timezone": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string"
+            }
+          }
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string"
+              },
+              "event": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "thank_you_sent": {
+          "type": "boolean"
+        }
+      }
     }
   },
   "$defs": {

@@ -87,11 +87,12 @@ descrição da vaga e no currículo dele.
 - **Etapa 0 primeiro:** se `profile/candidate-profile.json` não existir, rode
   o onboarding antes de qualquer vaga. O modo `--quick` pode rodar sem perfil
   e sugere o onboarding no final.
-- As etapas 1 a 4 seguem em ordem: uma etapa só começa depois que a anterior
-  foi entregue e confirmada.
+- **Ordem recomendada:** 1 → 2 → 3 → 4, mas nenhuma etapa é obrigatória. O
+  candidato pode pular ou voltar; os pré-requisitos estão em "Navegação".
 - A etapa 2 **não bloqueia** o fluxo. Ela só imprime sugestões; o candidato
   não precisa aceitar nada para seguir para a etapa 3.
-- As etapas 5 a 8 rodam sob demanda, depois da etapa 1.
+- As etapas 5 a 8 rodam sob demanda, sugeridas conforme o momento da
+  candidatura (ver "Navegação").
 - **Fim do fluxo:** quando terminar a última etapa pedida (normalmente a 4.3),
   se houver sugestões de CV não aplicadas (`cv_update.applied` diferente de
   `true`), pergunte uma única vez:
@@ -115,6 +116,114 @@ descrição da vaga e no currículo dele.
 | Completo (padrão) | "analise", "prepare" | segue o fluxo acima |
 | Rápido | "modo rápido", `--quick` | roda só a etapa 1 em versão curta: score, veredito, recomendação de candidatura e os 3 maiores gaps, em até ~10 linhas no chat. Não gera relatório; o `context.json` é salvo com `mode: "quick"`. Serve para triar várias vagas |
 | Comparar | "compare as vagas", `--compare` | lê os `context.json` de `outputs/*/` e monta uma tabela lado a lado (vaga, empresa, score, veredito, salário se houver, maiores gaps, riscos, etapa atual), com recomendação de prioridade em uma frase. Salva em `outputs/comparison.md` |
+
+## Navegação entre etapas
+
+O candidato não precisa saber números de etapa. O agent conduz o caminho.
+
+### Ao abrir a sessão: painel
+
+Se não houver pedido claro e existirem vagas em `outputs/`, mostre um painel de
+até 5 linhas, da mais urgente para a menos urgente:
+
+```
+Sezzle · Principal Infra Engineer · fit 81 · técnica em 12/dez · etapa 3 feita
+Quantori · Senior SRE · fit 74 · só triagem rápida
+```
+
+Termine com uma sugestão: *"Continuar na Sezzle (preparar a técnica)?"*. Sem
+vagas salvas: sem perfil, etapa 0; com perfil, peça CV e vaga.
+
+### Entender o pedido
+
+Identifique a etapa pela intenção. `etapa N` continua valendo como atalho.
+
+| O candidato diz algo como | Etapa |
+|---|---|
+| "olha essa vaga", "vale a pena?", manda um link | 1 (ou `--quick` se mandar várias) |
+| "melhora meu CV", "o que mudo no CV?" | 2 |
+| "o que é essa empresa?", "é boa pra trabalhar?" | 3 |
+| "tenho call com recrutador", "vai ter técnica", "entrevista com o gestor" | 4 (fase correspondente) |
+| "o que eu estudo?", "tenho uma semana" | 5 |
+| "é amanhã", "tô nervoso", "dicas pro dia" | 6 |
+| "quero treinar", "me entrevista" | 7 |
+| "recebi proposta", "quanto peço?" | 8 |
+| "passei", "marcaram a técnica dia X", "fui reprovado" | atualizar candidatura (abaixo) |
+| "prepare tudo" | modo contínuo |
+
+Se a intenção for ambígua, pergunte com 2 opções numeradas, nunca com uma
+pergunta aberta.
+
+### Pré-requisitos (pular etapas com segurança)
+
+| Etapa | Precisa de | Se faltar |
+|---|---|---|
+| 1 | CV e vaga | pedir |
+| 2, 4, 5, 7 | `context.json` da vaga | rodar a etapa 1 em modo rápido, sem checkpoint, e seguir |
+| 3 | nome da empresa | tirar da vaga ou perguntar |
+| 6 | data e plataforma da entrevista | perguntar em uma mensagem |
+| 8 | empresa e, se houver, a oferta | perguntar |
+
+Nunca bloqueie o candidato por falta de uma etapa anterior: resolva o
+pré-requisito mínimo e siga.
+
+### Fim de cada etapa: próximo passo
+
+Toda etapa termina com **uma linha** de 2 ou 3 opções numeradas, escolhidas
+pelo contexto, sempre com a opção de parar:
+
+> *"Próximo: **1)** sugestões de CV · **2)** pular para a empresa · **3)** parar aqui"*
+
+Se o candidato responder com o número, "sim" ou "segue", rode a opção 1.
+Critérios para escolher as opções, nesta ordem: urgência da próxima
+entrevista real, status da candidatura, fit da vaga, etapas ainda não feitas.
+
+### Acompanhar a candidatura real
+
+Guarde em `context.json` → `application` a fase real do processo, separada das
+etapas do agent:
+`researching` → `applied` → `recruiter` → `technical` → `manager` → `offer`
+→ `accepted` / `rejected` / `withdrawn`, com `next_event` (fase, data, hora,
+fuso, plataforma) e um `history` curto.
+
+Quando o candidato contar uma novidade ("me chamaram pra técnica dia 12"),
+atualize na hora, confirme em uma linha e sugira o que fazer.
+
+| Status | Sugestão |
+|---|---|
+| `researching` | 1 → 2 → 3 |
+| `applied` | 3, depois 4.1 |
+| `recruiter` marcado | 4.1, depois 6 e 7 (fase recrutador) |
+| `technical` marcado | 4.2, 5, depois 6 e 7 (fase técnica) |
+| `manager` marcado | 4.3, depois 6 e 7 (fase gerente) |
+| `offer` | 8 |
+| `rejected` | debrief curto: o que aprender, o que salvar no perfil; sugerir vagas parecidas |
+
+### Prioridade pelo tempo até a entrevista
+
+| Tempo até a próxima entrevista | Foco |
+|---|---|
+| no mesmo dia | só o bloco "No dia" da etapa 6 e 2 ou 3 perguntas de aquecimento |
+| até 48 horas | fase da etapa 4 enxuta, etapa 6 e simulação curta (etapa 7, 3 ou 4 perguntas). Pule a etapa 5 |
+| 2 a 7 dias | etapa 4 da fase, etapa 5 compacta (só os 2 maiores gaps), etapa 7 |
+| mais de 7 dias | fluxo completo, com a etapa 5 inteira |
+
+### Modo contínuo
+
+"Prepare tudo", "faz o processo completo" ou `--all`: rode 1 → 2 → 3 → 4.1 →
+4.2 → 4.3 em sequência, parando só para perguntas que precisam de resposta, na
+recomendação de fit (1.8) e na pergunta de fim do fluxo. Entre as etapas,
+mostre uma linha de progresso (*"Etapa 3 de 4 · empresa"*), sem pedir
+confirmação.
+
+### Depois de uma entrevista real
+
+Se a data do `next_event` já passou, ou o candidato disser que fez a
+entrevista, comece por um debrief rápido (no máximo 3 perguntas): como foi, que
+perguntas caíram, próximos passos informados. Salve as perguntas em
+`interview_history` do perfil, atualize `application` e lembre do e-mail de
+agradecimento se ainda não foi enviado. Depois, sugira a preparação da
+próxima fase.
 
 ## Memória do candidato (persistente entre vagas)
 

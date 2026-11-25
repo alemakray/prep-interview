@@ -5,7 +5,8 @@
 Preparar o candidato para cada fase do processo, supondo que a candidatura
 avançou. Cada fase roda **uma por vez**, com as respostas impressas completas
 no chat e salvas em `outputs/<vaga>/04-<fase>.md`. Ao terminar uma fase,
-pergunte se pode seguir para a próxima.
+use a regra de **próximo passo** do `AGENT.md` (a fase seguinte costuma ser a
+opção 1, mas a candidatura real pode indicar outra).
 
 | Fase | Arquivo de saída |
 |------|------------------|

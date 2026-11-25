@@ -85,13 +85,36 @@ choco install poppler               # Windows (ou: scoop install poppler)
 
 </details>
 
-## 🧭 Comandos
+## 🧭 Conversando com o agent
+
+Você não precisa decorar números de etapa. Fale do jeito que quiser:
+
+```text
+/prep-interview                                   # painel: suas vagas, onde parou e o que fazer agora
+/prep-interview tenho call com o recrutador amanhã
+/prep-interview me chamaram pra técnica dia 12
+/prep-interview quero treinar
+/prep-interview recebi a proposta
+```
+
+O agent:
+
+- **Mostra onde você parou** quando você abre a sessão.
+- **Sugere o próximo passo** no fim de cada etapa. Responda só com o número.
+- **Acompanha o processo real** (aplicou, recrutador, técnica, gerente, proposta) e prepara a fase certa.
+- **Prioriza pelo tempo:** entrevista amanhã? Vai direto para dicas e uma simulação curta. Uma semana? Monta
+  o plano de estudo.
+- **Faz o debrief** depois de cada entrevista e usa as perguntas que caíram na próxima preparação.
+- **Deixa pular etapas:** se faltar algo, roda o mínimo necessário sozinho, sem travar.
+
+### Atalhos
 
 | Comando | O que faz |
 |---|---|
 | `/prep-interview <cv> <vaga>` | Análise completa de uma vaga (etapa 1) e segue o fluxo |
 | `/prep-interview --quick <cv> <vaga>` | Triagem rápida: nota, veredito e 3 maiores gaps em ~10 linhas |
 | `/prep-interview --compare` | Tabela comparando todas as vagas já analisadas |
+| `/prep-interview --all <cv> <vaga>` | Modo contínuo: etapas 1 a 4 em sequência, parando só quando precisa de você |
 | `/prep-interview etapa N` | Roda a etapa N (0 a 8) na vaga mais recente |
 
 > 💡 **Fluxo econômico:** rode `--quick` em várias vagas, depois `--compare`, e faça a análise completa só
